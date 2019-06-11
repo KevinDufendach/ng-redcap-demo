@@ -1,19 +1,28 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div>
   <h1>Angular REDCap demo!</h1>
 </div>
 
 <div>
-
   <div *ngIf="afAuth.user | async as user; else showLogin">
     <h1>Hello {{ user.email }}</h1>
     <button (click)="logout()">Log out</button>
   </div>
   <ng-template #showLogin>
-    <p>Please log in.</p>
-    <input type="email" placeholder="Email" [(ngModel)]="email">
-    <input type="password" placeholder="Password" [(ngModel)]="pass">
-    <button (click)="login()">Log in</button>
+    <mat-card>
+      <mat-card-header>
+        <h3>Please log in</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email" [(ngModel)]="email">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="pass">
+        </mat-form-field>
+        <button (click)="login()">Log in</button>
+      </mat-card-content>
+    </mat-card>
   </ng-template>
 </div>
 
