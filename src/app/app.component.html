@@ -4,15 +4,17 @@
 </div>
 
 <div>
-  <input type="email" placeholder="Email">
 
-  <input type="password" placeholder="Password">
-
-  <button *ngIf="!isLoggedIn">Log in</button>
-
-  <button *ngIf="!isLoggedIn">Sign Up</button>
-
-  <button *ngIf="isLoggedIn">Log out</button>
+  <div *ngIf="afAuth.user | async as user; else showLogin">
+    <h1>Hello {{ user.email }}</h1>
+    <button (click)="logout()">Log out</button>
+  </div>
+  <ng-template #showLogin>
+    <p>Please log in.</p>
+    <input type="email" placeholder="Email" [(ngModel)]="email">
+    <input type="password" placeholder="Password" [(ngModel)]="pass">
+    <button (click)="login()">Log in</button>
+  </ng-template>
 </div>
 
 <router-outlet></router-outlet>
