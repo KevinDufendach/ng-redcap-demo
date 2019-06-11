@@ -8,7 +8,6 @@ import {User} from 'firebase';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn = false;
   email = '';
   pass: '';
   user: User;
