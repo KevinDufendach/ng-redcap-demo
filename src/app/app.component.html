@@ -4,26 +4,27 @@
 </div>
 
 <div>
-  <div *ngIf="afAuth.user | async as user; else showLogin">
-    <h1>Hello {{ user.email }}</h1>
-    <button (click)="logout()">Log out</button>
-  </div>
-  <ng-template #showLogin>
-    <mat-card>
-      <mat-card-header>
-        <h3>Please log in</h3>
-      </mat-card-header>
-      <mat-card-content>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <h1 *ngIf="!isLoggedIn">Please log in</h1>
+      <h1 *ngIf="isLoggedIn">Welcome!</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="isLoggedIn">
+        <p>{{ user.email }}</p>
+        <button mat-raised-button (click)="logout()">Log out</button>
+      </div>
+      <div *ngIf="!isLoggedIn" fxLayout="column" fxLayoutAlign="space-between">
         <mat-form-field>
           <input matInput type="email" placeholder="Email" [(ngModel)]="email">
         </mat-form-field>
         <mat-form-field>
           <input matInput type="password" placeholder="Password" [(ngModel)]="pass">
         </mat-form-field>
-        <button (click)="login()">Log in</button>
-      </mat-card-content>
-    </mat-card>
-  </ng-template>
+        <button mat-raised-button (click)="login()">Log in</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <router-outlet></router-outlet>

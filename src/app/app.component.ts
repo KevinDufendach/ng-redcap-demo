@@ -8,6 +8,7 @@ import {User} from 'firebase';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  isLoggedIn = false;
   email = '';
   pass: '';
   user: User;
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.afAuth.authState.subscribe( user => {
       this.user = user;
+      this.isLoggedIn = (user !== null);
     });
   }
 }
