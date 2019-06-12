@@ -41,11 +41,11 @@ export class AppComponent implements OnInit {
     getUserData({
       data: 'my Data'
     }).subscribe(result => {
-        this.projectData = result;
+        this.authText = result;
       },
       error => {
         console.log(error);
-        this.projectData = error;
+        this.authText = error;
       });
   }
 

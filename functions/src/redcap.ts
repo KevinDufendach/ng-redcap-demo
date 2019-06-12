@@ -1,6 +1,5 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
-import * as express from 'express';
 
 export interface REDCapConfig {
   token: string,
