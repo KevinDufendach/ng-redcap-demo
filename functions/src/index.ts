@@ -2,10 +2,11 @@ import * as functions from 'firebase-functions';
 // import * as admin from 'firebase-admin';
 import * as request from 'request-promise-native';
 import * as cfg from './config';
+import {Redcap} from './redcap';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
-export const getTestData = functions.https.onRequest((req, resp) => {
+export const getTestData = functions.https.onRequest((_req, resp) => {
   const config = cfg.config;
   const options = {
     uri: config.uri,
@@ -26,7 +27,7 @@ export const getTestData = functions.https.onRequest((req, resp) => {
   const p2 = p1.then((getResult) => {
     resp.send(getResult);
   });
-  p2.catch( (error) => {
+  p2.catch((error) => {
     console.log(error);
     resp.status(500).send(error);
   });
@@ -35,9 +36,35 @@ export const getTestData = functions.https.onRequest((req, resp) => {
 export const getUserData = functions.https.onCall((data, context) => {
   // check request is made by logged in user
   if (!context.auth) {
-    return 'user is not logged in'
+    return 'user is not logged in';
   }
 
   console.log('user is logged in: ' + context.auth.uid);
   return ('user is logged in: ' + context.auth.uid);
+});
+
+export const getMetadata = functions.https.onCall((data, context) => {
+  // check request is made by logged in user
+  if (!context.auth) {
+    return 'user is not logged in';
+  }
+
+  console.log('user is logged in: ' + context.auth.uid);
+
+  const rc = new Redcap();
+
+  return new Promise((resolve, reject) => {
+    rc.getMetadata('adolescent_preferences').subscribe((metadata) => {
+        console.log(metadata);
+        resolve(metadata);
+      },
+      (error) => {
+        reject(error);
+      });
+  });
+
+  // return rc.getMetadata('adolescent_preferences'); //.subscribe( metadataReceived => {
+  //   console.log('metadata received');
+  //   return (metadataReceived);
+  // });
 });

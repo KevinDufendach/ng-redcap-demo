@@ -15,8 +15,10 @@ export class AppComponent implements OnInit {
   user: User;
 
   authText: '';
+  projectData: any;
 
-  constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {}
+  constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {
+  }
 
   login(): void {
     const signInPromise = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass);
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.afAuth.authState.subscribe( user => {
+    this.afAuth.authState.subscribe(user => {
       this.user = user;
       this.isLoggedIn = (user !== null);
     });
@@ -38,12 +40,26 @@ export class AppComponent implements OnInit {
     const getUserData = this.fns.httpsCallable('getUserData');
     getUserData({
       data: 'my Data'
-    }).subscribe( result => {
-      this.authText = result;
-    },
+    }).subscribe(result => {
+        this.projectData = result;
+      },
       error => {
         console.log(error);
-        this.authText = error;
+        this.projectData = error;
+      });
+  }
+
+  testProjectDataFunction(): void {
+    const getMetadata = this.fns.httpsCallable('getMetadata');
+    getMetadata({
+      data: 'my Data'
+    }).subscribe(result => {
+        console.log(result);
+        this.projectData = result;
+      },
+      error => {
+        console.log(error);
+        this.projectData = error;
       });
   }
 }

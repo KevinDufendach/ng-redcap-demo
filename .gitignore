@@ -54,3 +54,6 @@ Thumbs.db
 
 # Firebase long
 .firebase/
+
+# resources files
+/resources
