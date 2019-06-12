@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+// import * as admin from 'firebase-admin';
 import * as request from 'request-promise-native';
 import * as cfg from './config';
 
@@ -29,4 +30,17 @@ export const getTestData = functions.https.onRequest((req, resp) => {
     console.log(error);
     resp.status(500).send(error);
   });
+});
+
+export const getUserData = functions.https.onCall((data, context) => {
+  console.log('running function');
+
+  // check request is made by logged in user
+  if (context.auth) {
+    console.log('user is logged in: ' + context.auth.uid);
+  } else {
+    console.log('user is not logged in');
+  }
+
+  return ('returning some data');
 });

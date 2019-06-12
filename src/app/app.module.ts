@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatCardModule, MatInputModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {AngularFireFunctionsModule, FUNCTIONS_ORIGIN} from '@angular/fire/functions';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     FormsModule,
 
     MatInputModule,
@@ -29,7 +31,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

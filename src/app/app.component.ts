@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
+import {AngularFireFunctions} from '@angular/fire/functions';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,9 @@ export class AppComponent implements OnInit {
   pass: '';
   user: User;
 
-  constructor(public afAuth: AngularFireAuth) {}
+  authText: '';
+
+  constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {}
 
   login(): void {
     const signInPromise = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass);
@@ -28,6 +31,16 @@ export class AppComponent implements OnInit {
     this.afAuth.authState.subscribe( user => {
       this.user = user;
       this.isLoggedIn = (user !== null);
+    });
+  }
+
+  testAuthFunction(): void {
+    console.log('about to test function');
+    const getUserData = this.fns.httpsCallable('getUserData');
+    getUserData({
+      data: 'my Data'
+    }).subscribe( result => {
+      console.log(result);
     });
   }
 }
