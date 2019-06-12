@@ -35,12 +35,15 @@ export class AppComponent implements OnInit {
   }
 
   testAuthFunction(): void {
-    console.log('about to test function');
     const getUserData = this.fns.httpsCallable('getUserData');
     getUserData({
       data: 'my Data'
     }).subscribe( result => {
-      console.log(result);
-    });
+      this.authText = result;
+    },
+      error => {
+        console.log(error);
+        this.authText = error;
+      });
   }
 }

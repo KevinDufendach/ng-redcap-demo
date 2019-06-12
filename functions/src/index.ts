@@ -33,14 +33,11 @@ export const getTestData = functions.https.onRequest((req, resp) => {
 });
 
 export const getUserData = functions.https.onCall((data, context) => {
-  console.log('running function');
-
   // check request is made by logged in user
-  if (context.auth) {
-    console.log('user is logged in: ' + context.auth.uid);
-  } else {
-    console.log('user is not logged in');
+  if (!context.auth) {
+    return 'user is not logged in'
   }
 
-  return ('returning some data');
+  console.log('user is logged in: ' + context.auth.uid);
+  return ('user is logged in: ' + context.auth.uid);
 });
