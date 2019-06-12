@@ -51,20 +51,9 @@ export const getMetadata = functions.https.onCall((data, context) => {
 
   console.log('user is logged in: ' + context.auth.uid);
 
-  const rc = new Redcap();
-
+  // Return promise from REDCap getMetadata class
   return new Promise((resolve, reject) => {
-    rc.getMetadata('adolescent_preferences').subscribe((metadata) => {
-        console.log(metadata);
-        resolve(metadata);
-      },
-      (error) => {
-        reject(error);
-      });
+    const rc = new Redcap();
+    return rc.getMetadata('adolescent_preferences');
   });
-
-  // return rc.getMetadata('adolescent_preferences'); //.subscribe( metadataReceived => {
-  //   console.log('metadata received');
-  //   return (metadataReceived);
-  // });
 });
