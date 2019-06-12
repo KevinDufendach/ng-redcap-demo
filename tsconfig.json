@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-redcap": [
+        "dist/ng-redcap"
+      ],
+      "ng-redcap/*": [
+        "dist/ng-redcap/*"
+      ]
+    }
   }
 }
