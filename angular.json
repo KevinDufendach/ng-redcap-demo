@@ -119,6 +119,41 @@
           }
         }
       }
+    },
+    "ng-redcap": {
+      "projectType": "library",
+      "root": "projects/ng-redcap",
+      "sourceRoot": "projects/ng-redcap/src",
+      "prefix": "rcap",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-redcap/tsconfig.lib.json",
+            "project": "projects/ng-redcap/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-redcap/src/test.ts",
+            "tsConfig": "projects/ng-redcap/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-redcap/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-redcap/tsconfig.lib.json",
+              "projects/ng-redcap/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "ng-redcap-demo"
 }

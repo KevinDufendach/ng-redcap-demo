@@ -37,10 +37,15 @@
 
 <div>
   <h3>Test area for get project data</h3>
-  <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Test Functions</button>
-  <div>
-    <textarea>{{projectData}}</textarea>
-  </div>
+  <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Get Fields</button>
+<!--  <div>-->
+<!--    <textarea>{{projectData}}</textarea>-->
+<!--  </div>-->
+  <ul>
+    <li *ngFor="let field of projectFields">
+      {{field.field_label}}: {{field.field_type}}
+    </li>
+  </ul>
 </div>
 
 <router-outlet></router-outlet>

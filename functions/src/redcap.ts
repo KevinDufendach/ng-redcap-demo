@@ -1,30 +1,10 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
+import {Field} from '../../projects/ng-redcap/src/lib/field';
 
 export interface REDCapConfig {
   token: string,
   uri: string,
-}
-
-export interface REDCapMetadata {
-  "field_name": string,
-  "form_name": string,
-  "section_header": string,
-  "field_type": string,
-  "field_label": string,
-  "select_choices_or_calculations": string,
-  "field_note": string,
-  "text_validation_type_or_show_slider_number": string,
-  "text_validation_min": string,
-  "text_validation_max": string,
-  "identifier": string,
-  "branching_logic": string,
-  "required_field": string,
-  "custom_alignment": string,
-  "question_number": string,
-  "matrix_group_name": string,
-  "matrix_ranking": string,
-  "field_annotation": string
 }
 
 export class Redcap {
@@ -38,7 +18,7 @@ export class Redcap {
     this.config = cfg.config;
   }
 
-  getMetadata(form?: string): Promise<REDCapMetadata[]> {
+  getMetadata(form?: string): Promise<Field[]> {
     const options = {
       uri: this.config.uri,
       headers: {
@@ -56,11 +36,11 @@ export class Redcap {
       }
     };
 
-    return new Promise<REDCapMetadata[]>((resolve, reject) => {
+    return new Promise<Field[]>((resolve, reject) => {
       const p1 = request.post(options);
       const p2 = p1.then((result) => {
         // ToDo: check to be sure data received are appropriately formatted
-        const resultData = <REDCapMetadata[]>result;
+        const resultData = <Field[]>result;
         resolve(resultData);
       });
       p2.catch( (error) => {
