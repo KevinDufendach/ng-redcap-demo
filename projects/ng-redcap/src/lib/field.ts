@@ -1,4 +1,4 @@
-export interface Field {
+export interface REDCapFieldMetadata {
   'field_name': string;
   'form_name': string;
   'section_header': string;
@@ -18,3 +18,4 @@ export interface Field {
   'matrix_ranking': string;
   'field_annotation': string;
 }
+

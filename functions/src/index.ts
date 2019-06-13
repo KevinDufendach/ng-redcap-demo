@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions';
 import * as request from 'request-promise-native';
 import * as cfg from './config';
 import {Redcap} from './redcap';
-import {Field} from '../../projects/ng-redcap/src/lib/field';
+import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/lib/field';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -47,7 +47,7 @@ export const getUserData = functions.https.onCall((data, context) => {
 export const getMetadata = functions.https.onCall((data, context) => {
   // check request is made by logged in user
   if (!context.auth) {
-    return new Promise<Field[]>((resolve, reject) => {
+    return new Promise<REDCapFieldMetadata[]>((resolve, reject) => {
       reject(new functions.https.HttpsError('unauthenticated', 'User must be logged in'));
     });
   }
