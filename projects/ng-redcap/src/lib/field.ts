@@ -19,3 +19,50 @@ export interface REDCapFieldMetadata {
   'field_annotation': string;
 }
 
+export class Field {
+  fieldName: string;
+  formName: string;
+  sectionHeader: string;
+  fieldType: string;
+  fieldLabel: string;
+  selectChoicesOrCalculation: string;
+  fieldNote: string;
+  textValidationTypeOrShowSliderNumber: string;
+  textValidationMin: string;
+  textValidationMax: string;
+  identifier: string;
+  branchingLogic: string;
+  requiredField: string;
+  customAlignment: string;
+  questionNumber: string;
+  matrixGroupName: string;
+  matrixRanking: string;
+  fieldAnnotation: string;
+
+  constructor( fieldMetadata?: REDCapFieldMetadata ) {
+    if (fieldMetadata) {
+      this.buildFromMetadata(fieldMetadata);
+    }
+  }
+
+  buildFromMetadata( md: REDCapFieldMetadata ) {
+    this.fieldName = md.field_name;
+    this.formName = md.form_name;
+    this.sectionHeader = md.section_header;
+    this.fieldType = md.field_type;
+    this.fieldLabel = md.field_label;
+    this.selectChoicesOrCalculation = md.select_choices_or_calculations;
+    this.fieldNote = md.field_note;
+    this.textValidationTypeOrShowSliderNumber = md.text_validation_type_or_show_slider_number;
+    this.textValidationMin = md.text_validation_min;
+    this.textValidationMax = md.text_validation_max;
+    this.identifier = md.identifier;
+    this.branchingLogic = md.branching_logic;
+    this.requiredField = md.required_field;
+    this.customAlignment = md.custom_alignment;
+    this.questionNumber = md.question_number;
+    this.matrixGroupName = md.matrix_group_name;
+    this.matrixRanking = md.matrix_ranking;
+    this.fieldAnnotation = md.field_annotation;
+  }
+}
