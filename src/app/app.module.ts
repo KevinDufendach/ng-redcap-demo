@@ -11,6 +11,7 @@ import {MatButtonModule, MatCardModule, MatInputModule} from '@angular/material'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {AngularFireFunctionsModule, FUNCTIONS_ORIGIN} from '@angular/fire/functions';
+import {NgRedcapModule} from '../../projects/ng-redcap/src/lib/ng-redcap.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {AngularFireFunctionsModule, FUNCTIONS_ORIGIN} from '@angular/fire/functi
 
     FlexLayoutModule,
     MatButtonModule,
+    NgRedcapModule,
   ],
   providers: [
     { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }

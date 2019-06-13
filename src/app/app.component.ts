@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
 import {AngularFireFunctions} from '@angular/fire/functions';
+import {Field} from '../../projects/ng-redcap/src/lib/field';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,8 @@ export class AppComponent implements OnInit {
 
   authText: '';
   projectData: any;
+
+  projectFields: Field[];
 
   constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {
   }
@@ -51,15 +54,17 @@ export class AppComponent implements OnInit {
 
   testProjectDataFunction(): void {
     const getMetadata = this.fns.httpsCallable('getMetadata');
-    getMetadata({
-      data: 'my Data'
-    }).subscribe(result => {
-        console.log(result);
-        this.projectData = result;
-      },
-      error => {
-        console.log(error);
-        this.projectData = error;
-      });
+
+    getMetadata({data: 'my Data'})
+      .subscribe(result => {
+          console.log(result);
+          this.projectData = result;
+
+          this.projectFields = result;
+        },
+        error => {
+          console.log(error);
+          this.projectData = error;
+        });
   }
 }
