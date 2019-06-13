@@ -45,6 +45,15 @@ export class Field {
     }
   }
 
+  static generateFieldsFromMetadataList( rawFields: REDCapFieldMetadata[]): Field[] {
+    const fields = new Array<Field>();
+    for (const rawField of rawFields) {
+      fields.push(new Field(rawField));
+    }
+
+    return fields;
+  }
+
   buildFromMetadata( md: REDCapFieldMetadata ) {
     this.fieldName = md.field_name;
     this.formName = md.form_name;
