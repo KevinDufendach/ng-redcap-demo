@@ -20,24 +20,24 @@ export interface REDCapFieldMetadata {
 }
 
 export class Field {
-  fieldName: string;
-  formName: string;
-  sectionHeader: string;
-  fieldType: string;
-  fieldLabel: string;
-  selectChoicesOrCalculation: string;
-  fieldNote: string;
-  textValidationTypeOrShowSliderNumber: string;
-  textValidationMin: string;
-  textValidationMax: string;
-  identifier: string;
-  branchingLogic: string;
-  requiredField: string;
-  customAlignment: string;
-  questionNumber: string;
-  matrixGroupName: string;
-  matrixRanking: string;
-  fieldAnnotation: string;
+  fieldName?: string;
+  formName?: string;
+  sectionHeader?: string;
+  fieldType?: string;
+  fieldLabel?: string;
+  selectChoicesOrCalculation?: string;
+  fieldNote?: string;
+  textValidationTypeOrShowSliderNumber?: string;
+  textValidationMin?: string;
+  textValidationMax?: string;
+  identifier?: string;
+  branchingLogic?: string;
+  requiredField?: string;
+  customAlignment?: string;
+  questionNumber?: string;
+  matrixGroupName?: string;
+  matrixRanking?: string;
+  fieldAnnotation?: string;
 
   constructor( fieldMetadata?: REDCapFieldMetadata ) {
     if (fieldMetadata) {

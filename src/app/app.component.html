@@ -42,9 +42,10 @@
 <!--  <div>-->
 <!--    <textarea>{{projectData}}</textarea>-->
 <!--  </div>-->
+  <p>Field objects:</p>
   <ul>
     <li *ngFor="let field of projectFields">
-      {{field.field_label}}: {{field.field_type}}
+      {{field.fieldLabel}}: {{field.fieldType}}
     </li>
   </ul>
 </div>

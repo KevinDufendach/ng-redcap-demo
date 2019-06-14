@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
 import {AngularFireFunctions} from '@angular/fire/functions';
-import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/lib/field';
+import {Field} from '../../projects/ng-redcap/src/lib/field';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   authText: '';
   projectData: any;
 
-  projectFields: REDCapFieldMetadata[];
+  projectFields: Field[];
 
   constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {
   }
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
           console.log(result);
           this.projectData = result;
 
-          this.projectFields = result;
+          this.projectFields = Field.generateFieldsFromMetadataList(result);
         },
         error => {
           console.log(error);
