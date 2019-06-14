@@ -50,4 +50,8 @@
   </ul>
 </div>
 
+<div *ngFor="let field of projectFields">
+  <rcap-field [field]="field"></rcap-field>
+</div>
+
 <router-outlet></router-outlet>
