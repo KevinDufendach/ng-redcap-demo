@@ -29,14 +29,6 @@
 </div>
 
 <div>
-  <h3>Test area for function</h3>
-  <button mat-raised-button class="mat-primary" (click)="testAuthFunction()">Test Functions</button>
-  <div>
-    <textarea>{{authText}}</textarea>
-  </div>
-</div>
-
-<div>
   <h3>Test area for get project data</h3>
   <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Get Fields</button>
 <!--  <div>-->
@@ -52,6 +44,17 @@
 
 <div *ngFor="let field of projectFields">
   <rcap-field [field]="field"></rcap-field>
+</div>
+
+<div>
+  <h3>Test area for records</h3>
+  <button mat-raised-button class="mat-primary" (click)="getValues()">Test Record Export</button>
+  <div>
+    <textarea>{{values}}</textarea>
+  </div>
+  <ul>
+    <li *ngFor="let item of values | keyvalue">{{item.key}}: {{item.value}}</li>
+  </ul>
 </div>
 
 <router-outlet></router-outlet>

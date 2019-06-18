@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   projectData: any;
 
   projectFields: Field[];
+  values = {};
 
   constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {
   }
@@ -39,18 +40,19 @@ export class AppComponent implements OnInit {
     });
   }
 
-  testAuthFunction(): void {
-    const getUserData = this.fns.httpsCallable('getUserData');
-    getUserData({
-      data: 'my Data'
-    }).subscribe(result => {
-        this.authText = result;
-      },
-      error => {
-        console.log(error);
-        this.authText = error;
-      });
-  }
+  //
+  // testAuthFunction(): void {
+  //   const getUserData = this.fns.httpsCallable('getUserData');
+  //   getUserData({
+  //     data: 'my Data'
+  //   }).subscribe(result => {
+  //       this.authText = result;
+  //     },
+  //     error => {
+  //       console.log(error);
+  //       this.authText = error;
+  //     });
+  // }
 
   testProjectDataFunction(): void {
     const getMetadata = this.fns.httpsCallable('getMetadata');
@@ -65,6 +67,25 @@ export class AppComponent implements OnInit {
         error => {
           console.log(error);
           this.projectData = error;
+        });
+  }
+
+  getValues(): void {
+    const getRecordExport = this.fns.httpsCallable('getRecord');
+
+    getRecordExport({form: 'adolescent_preferences'})
+      .subscribe(result => {
+          console.log(result);
+          this.values = result;
+
+          // if (result instanceof Array) {
+          //   result.forEach(value => {
+          //     console.log(value);
+          //   });
+          // }
+        },
+        error => {
+          console.log(error);
         });
   }
 }

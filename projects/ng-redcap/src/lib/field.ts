@@ -39,13 +39,13 @@ export class Field {
   matrixRanking?: string;
   fieldAnnotation?: string;
 
-  constructor( fieldMetadata?: REDCapFieldMetadata ) {
+  constructor(fieldMetadata?: REDCapFieldMetadata) {
     if (fieldMetadata) {
       this.buildFromMetadata(fieldMetadata);
     }
   }
 
-  static generateFieldsFromMetadataList( rawFields: REDCapFieldMetadata[]): Field[] {
+  static generateFieldsFromMetadataList(rawFields: REDCapFieldMetadata[]): Field[] {
     const fields = new Array<Field>();
     for (const rawField of rawFields) {
       fields.push(new Field(rawField));
@@ -54,7 +54,7 @@ export class Field {
     return fields;
   }
 
-  buildFromMetadata( md: REDCapFieldMetadata ) {
+  buildFromMetadata(md: REDCapFieldMetadata) {
     this.fieldName = md.field_name;
     this.formName = md.form_name;
     this.sectionHeader = md.section_header;
@@ -73,5 +73,9 @@ export class Field {
     this.matrixGroupName = md.matrix_group_name;
     this.matrixRanking = md.matrix_ranking;
     this.fieldAnnotation = md.field_annotation;
+  }
+
+  getValue() {
+
   }
 }
