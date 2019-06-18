@@ -19,11 +19,17 @@ export interface REDCapFieldMetadata {
   'field_annotation': string;
 }
 
+export enum FieldType {
+  Radio,
+  Checkbox,
+  Other,
+}
+
 export class Field {
   fieldName?: string;
   formName?: string;
   sectionHeader?: string;
-  fieldType?: string;
+  fieldType?: FieldType;
   fieldLabel?: string;
   selectChoicesOrCalculation?: string;
   fieldNote?: string;
@@ -38,6 +44,9 @@ export class Field {
   matrixGroupName?: string;
   matrixRanking?: string;
   fieldAnnotation?: string;
+
+  options: any;
+  value: any;
 
   constructor(fieldMetadata?: REDCapFieldMetadata) {
     if (fieldMetadata) {
@@ -58,7 +67,22 @@ export class Field {
     this.fieldName = md.field_name;
     this.formName = md.form_name;
     this.sectionHeader = md.section_header;
-    this.fieldType = md.field_type;
+
+    // Assign field type
+    switch (md.field_type) {
+      case 'radio': {
+        this.fieldType = FieldType.Radio;
+        break;
+      }
+      case 'checkbox': {
+        this.fieldType = FieldType.Checkbox;
+        break;
+      }
+      default: {
+        this.fieldType = FieldType.Other;
+      }
+    }
+
     this.fieldLabel = md.field_label;
     this.selectChoicesOrCalculation = md.select_choices_or_calculations;
     this.fieldNote = md.field_note;
@@ -75,7 +99,16 @@ export class Field {
     this.fieldAnnotation = md.field_annotation;
   }
 
-  getValue() {
+  assignValue(values: object) {
+    switch (this.fieldType) {
+      case FieldType.Radio: {
 
+        break;
+      }
+      case FieldType.Checkbox: {
+
+        break;
+      }
+    }
   }
 }
