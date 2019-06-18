@@ -7,7 +7,7 @@ export interface REDCapConfig {
   uri: string,
 }
 
-export class Redcap {
+export class REDCapService {
   config: REDCapConfig;
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -38,6 +38,26 @@ export class Redcap {
 
     return new Promise<Field[]>((resolve, reject) => {
       const p1 = request.post(options);
+      const p2 = p1.then((result) => {
+        // ToDo: check to be sure data received are appropriately formatted
+        const resultData = <Field[]>result;
+        resolve(resultData);
+      });
+      p2.catch( (error) => {
+        console.log(error);
+        reject(error);
+      });
+    });
+  }
+
+  getTestMetaData(form?: string): Promise<Field[]> {
+    const options = {
+      uri: cfg.testConfig.uri,
+      json: true, // Automatically parses the JSON string in the response
+    };
+
+    return new Promise<Field[]>((resolve, reject) => {
+      const p1 = request.get(options);
       const p2 = p1.then((result) => {
         // ToDo: check to be sure data received are appropriately formatted
         const resultData = <Field[]>result;

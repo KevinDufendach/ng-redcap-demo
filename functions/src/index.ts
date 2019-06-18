@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 // import * as admin from 'firebase-admin';
 import * as request from 'request-promise-native';
 import * as cfg from './config';
-import {Redcap} from './redcap';
+import {REDCapService} from './redcap-service';
 import {Field} from '../../projects/ng-redcap/src/lib/field';
 
 // // Start writing Firebase Functions
@@ -55,6 +55,7 @@ export const getMetadata = functions.https.onCall((data, context) => {
   console.log('user is logged in: ' + context.auth.uid);
 
   // Return promise from REDCap getMetadata class
-  const rc = new Redcap();
-  return rc.getMetadata('adolescent_preferences');
+  const rc = new REDCapService();
+  // return rc.getMetadata('adolescent_preferences');
+  return rc.getTestMetaData('adolescent_preferences');
 });
