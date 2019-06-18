@@ -1,6 +1,6 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
-import {Field} from '../../projects/ng-redcap/src/lib/field';
+import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/lib/field';
 
 export interface REDCapConfig {
   token: string,
@@ -18,7 +18,7 @@ export class REDCapService {
     this.config = cfg.config;
   }
 
-  getMetadata(form?: string): Promise<Field[]> {
+  getMetadata(form?: string): Promise<REDCapFieldMetadata[]> {
     const options = {
       uri: this.config.uri,
       headers: {
@@ -36,11 +36,11 @@ export class REDCapService {
       }
     };
 
-    return new Promise<Field[]>((resolve, reject) => {
+    return new Promise<REDCapFieldMetadata[]>((resolve, reject) => {
       const p1 = request.post(options);
       const p2 = p1.then((result) => {
         // ToDo: check to be sure data received are appropriately formatted
-        const resultData = <Field[]>result;
+        const resultData = <REDCapFieldMetadata[]>result;
         resolve(resultData);
       });
       p2.catch( (error) => {

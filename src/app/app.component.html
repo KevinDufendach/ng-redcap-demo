@@ -12,6 +12,7 @@
     <mat-card-content>
       <div *ngIf="isLoggedIn">
         <p>{{ user.email }}</p>
+        <p>{{ user.uid }}</p>
         <button mat-raised-button (click)="logout()">Log out</button>
       </div>
       <div *ngIf="!isLoggedIn" fxLayout="column" fxLayoutAlign="space-between">
@@ -41,11 +42,16 @@
 <!--  <div>-->
 <!--    <textarea>{{projectData}}</textarea>-->
 <!--  </div>-->
+  <p>Field objects:</p>
   <ul>
     <li *ngFor="let field of projectFields">
-      {{field.field_label}}: {{field.field_type}}
+      {{field.fieldLabel}}: {{field.fieldType}}
     </li>
   </ul>
+</div>
+
+<div *ngFor="let field of projectFields">
+  <rcap-field [field]="field"></rcap-field>
 </div>
 
 <router-outlet></router-outlet>

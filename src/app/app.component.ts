@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
           console.log(result);
           this.projectData = result;
 
-          this.projectFields = result;
+          this.projectFields = Field.generateFieldsFromMetadataList(result);
         },
         error => {
           console.log(error);
