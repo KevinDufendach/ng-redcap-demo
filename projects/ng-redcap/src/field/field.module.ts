@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FieldComponent} from './field.component';
-import {RadioFormComponent} from './radio-form.component';
+import {RadioControlComponent} from './radio-control.component';
 
 @NgModule({
   declarations: [
     FieldComponent,
-    RadioFormComponent,
+    RadioControlComponent,
   ],
   exports: [
     FieldComponent,
-    RadioFormComponent,
+    RadioControlComponent,
   ],
   imports: [
     CommonModule
