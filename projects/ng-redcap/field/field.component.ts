@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {Field} from '../src/lib/field';
+import {Field, FieldType} from '../src/lib/field';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const noop = () => {};
@@ -20,11 +20,14 @@ export class FieldComponent implements ControlValueAccessor {
   @Input() field: Field;
   private innerValue: any = '';
 
-  // Placeholders for the callbacks which are later providesd
+  // Placeholders for the callbacks which are later provided
   // by the Control Value Accessor
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
   private isDisabled: boolean;
+
+  // Access to FieldType enum
+  FieldType = FieldType;
 
   // get acessor
   get value(): any {

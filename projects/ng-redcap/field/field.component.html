@@ -1,3 +1,8 @@
 <h5>{{field.fieldLabel}}</h5>
 <p>{{field.fieldNote}}</p>
+
+<div *ngIf="field.fieldType == FieldType.Radio">
+  <p>I'm a radio selection!</p>
+</div>
+
 <p>Value: {{innerValue}}</p>
