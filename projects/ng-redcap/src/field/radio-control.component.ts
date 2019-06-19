@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Field, FieldRadio} from './field';
+import {RadioField} from './field';
 
 @Component({
   selector: 'rcap-field-radio',
@@ -7,9 +7,11 @@ import {Field, FieldRadio} from './field';
   styleUrls: ['./radio-control.component.css']
 })
 export class RadioControlComponent implements OnInit {
-  @Input() field: Field;
-
+  // typedField: RadioField;
+  optionKeys: string[];
   innerValue: string;
+
+  @Input() field: RadioField;
 
   @Output() valueChange = new EventEmitter<string>();
 
@@ -19,23 +21,25 @@ export class RadioControlComponent implements OnInit {
   }
 
   set value(val) {
+    // console.log('value being set');
+    // console.log(this.field);
     if (val !== this.innerValue) {
       this.innerValue = val;
+      this.field.value = val;
       this.valueChange.emit(this.innerValue);
     }
   }
 
-  typedField: FieldRadio;
-  optionKeys: string[];
-
-  constructor( ) { }
+  constructor( ) {
+  }
 
   ngOnInit() {
-    if (this.field instanceof FieldRadio) {
-      this.typedField = this.field;
-      this.optionKeys = Array.from(this.typedField.getOptions().keys());
+    // console.log('checking field instance');
+    if (this.field instanceof RadioField) {
+      this.innerValue = this.field.value;
+      this.optionKeys = Array.from(this.field.getOptions().keys());
     } else {
-      console.log('field is not an instance of FieldRadio: ');
+      console.log('field is not an instance of RadioField: ');
       console.log(this.field);
     }
   }
@@ -44,4 +48,7 @@ export class RadioControlComponent implements OnInit {
     this.value = value;
   }
 
+  getValue() {
+    return this.innerValue;
+  }
 }

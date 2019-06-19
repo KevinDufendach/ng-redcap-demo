@@ -65,27 +65,35 @@ export abstract class Field {
 
   static buildFromMetadata(rawField: REDCapFieldMetadata): Field {
     switch (rawField.field_type) {
-      case 'radio': return new FieldRadio(rawField);
-      case 'checkbox': return new FieldCheckbox(rawField);
-      default: return new FieldCheckbox(rawField);
+      case 'radio':
+        return new RadioField(rawField);
+      case 'checkbox':
+        return new FieldCheckbox(rawField);
+      default:
+        return new FieldCheckbox(rawField);
     }
   }
 
   abstract getType(): FieldType;
+
   abstract setOptions(optionsString: string);
+
   abstract assignValue(values: object);
-  abstract getValue<T>(): T;
+
+  // abstract getValue();
+  // abstract setValue(val: any);
 }
 
-export class FieldRadio extends Field {
+export class RadioField extends Field {
   options: Map<string, string>;
+  value: string;
 
   setOptions(optionsString: string) {
     this.options = new Map<string, string>();
     const ops = optionsString.split('|'); // TODO: determine what happens when there's a pipe in the string
 
     for (const op of ops) {
-      const optionRegEx = /([0-9]+),\s(.*)/g; // note: need to set with each iteration
+      const optionRegEx = /([\-0-9]+),\s(.*)/g; // note: need to set with each iteration
       const match = optionRegEx.exec(op);
       if (match && match.length > 2) {
         this.options.set(match[1], match[2]);
@@ -104,14 +112,20 @@ export class FieldRadio extends Field {
   }
 
   assignValue(values: object) {
-  }
+    if (!this.fieldName) {
+      console.log('unable to assign value since no field name exists');
+    }
 
-  getValue<T>(): T {
-    return undefined;
+    if (values.hasOwnProperty(this.fieldName)) {
+      this.value = values[this.fieldName];
+    }
   }
 }
 
+
 export class FieldCheckbox extends Field {
+  value: Array<string>;
+
   assignValue(values: object) {
   }
 
@@ -120,9 +134,5 @@ export class FieldCheckbox extends Field {
 
   getType(): FieldType {
     return FieldType.Checkbox;
-  }
-
-  getValue<T>(): T {
-    return undefined;
   }
 }
