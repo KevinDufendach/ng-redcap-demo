@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let key of optionKeys">{{key}}: {{field.getOptions().get(key)}}</li>
 </ul>
-<button mat-raised-button (click)="setValue(getValue() + 'mu')">Set Value</button>
-<p>Inner Value: {{getValue()}}</p>
+<!--<button mat-raised-button (click)="setValue(getValue() + 'mu')">Set Value</button>-->
+<p>Field Value: {{field.value}}</p>

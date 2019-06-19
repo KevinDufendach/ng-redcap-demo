@@ -2,7 +2,5 @@
 <p>{{field.fieldNote}}</p>
 
 <div *ngIf="field.fieldType == FieldType.Radio">
-  <rcap-field-radio [field]="field" [(value)]="innerValue"></rcap-field-radio>
+  <rcap-field-radio [field]="field"></rcap-field-radio>
 </div>
-
-<p>Value: {{innerValue}}</p>
