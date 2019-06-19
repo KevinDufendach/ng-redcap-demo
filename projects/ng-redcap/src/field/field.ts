@@ -80,8 +80,7 @@ export abstract class Field {
 
   abstract assignValue(values: object);
 
-  // abstract getValue();
-  // abstract setValue(val: any);
+  abstract getValue();
 }
 
 export class RadioField extends Field {
@@ -121,6 +120,10 @@ export class RadioField extends Field {
       this.value = values[this.fieldName];
     }
   }
+
+  getValue(): string {
+    return this.value;
+  }
 }
 
 
@@ -135,5 +138,9 @@ export class FieldCheckbox extends Field {
 
   getType(): FieldType {
     return FieldType.Checkbox;
+  }
+
+  getValue() {
+    return this.value;
   }
 }
