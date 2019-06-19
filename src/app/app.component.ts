@@ -63,11 +63,28 @@ export class AppComponent implements OnInit {
           this.projectData = result;
 
           this.projectFields = Field.generateFieldsFromMetadataList(result);
+          this.updateValues();
         },
         error => {
           console.log(error);
           this.projectData = error;
         });
+  }
+
+  updateValues(): boolean {
+    if (this.values && this.projectFields) {
+      for (const field of this.projectFields) {
+        field.assignValue(this.values);
+      }
+
+      console.log(this.projectFields);
+
+      // Return true if values updated
+      return true;
+    }
+
+    // Return false if not updated
+    return false;
   }
 
   getValues(): void {
@@ -78,6 +95,7 @@ export class AppComponent implements OnInit {
           console.log(result);
           this.values = result;
 
+          this.updateValues();
           // if (result instanceof Array) {
           //   result.forEach(value => {
           //     console.log(value);

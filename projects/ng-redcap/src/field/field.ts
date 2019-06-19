@@ -117,6 +117,7 @@ export class RadioField extends Field {
     }
 
     if (values.hasOwnProperty(this.fieldName)) {
+      console.log('setting value of: ' + this.fieldName + ' to ' + values[this.fieldName]);
       this.value = values[this.fieldName];
     }
   }
