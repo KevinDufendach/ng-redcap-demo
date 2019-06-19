@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
 import {AngularFireFunctions} from '@angular/fire/functions';
-import {Field} from '../../projects/ng-redcap/src/lib/field';
+import {Field} from '../../projects/ng-redcap/src/field/field';
 
 @Component({
   selector: 'app-root',

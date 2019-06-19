@@ -1,6 +1,6 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
-import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/lib/field';
+import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/field/field';
 
 export interface REDCapConfig {
   token: string,
