@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Field, FieldRadio} from './field';
 
 @Component({
@@ -9,10 +9,26 @@ import {Field, FieldRadio} from './field';
 export class RadioControlComponent implements OnInit {
   @Input() field: Field;
 
+  innerValue: string;
+
+  @Output() valueChange = new EventEmitter<string>();
+
+  @Input()
+  get value() {
+    return this.innerValue;
+  }
+
+  set value(val) {
+    if (val !== this.innerValue) {
+      this.innerValue = val;
+      this.valueChange.emit(this.innerValue);
+    }
+  }
+
   typedField: FieldRadio;
   optionKeys: string[];
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit() {
     if (this.field instanceof FieldRadio) {
@@ -22,6 +38,10 @@ export class RadioControlComponent implements OnInit {
       console.log('field is not an instance of FieldRadio: ');
       console.log(this.field);
     }
+  }
+
+  setValue(value: string) {
+    this.value = value;
   }
 
 }

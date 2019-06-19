@@ -1,3 +1,5 @@
 <ul>
   <li *ngFor="let key of optionKeys">{{typedField.getOptions().get(key)}}</li>
 </ul>
+<button mat-raised-button (click)="setValue(innerValue + 'mu')">Set Value</button>
+<p>Inner Value: {{innerValue}}</p>

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FieldComponent} from './field.component';
 import {RadioControlComponent} from './radio-control.component';
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {RadioControlComponent} from './radio-control.component';
     RadioControlComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ]
 })
 export class FieldModule {
