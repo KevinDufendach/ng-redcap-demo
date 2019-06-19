@@ -3,10 +3,10 @@ import {Field, FieldRadio} from './field';
 
 @Component({
   selector: 'rcap-field-radio',
-  templateUrl: './field-radio.component.html',
-  styleUrls: ['./field-radio.component.css']
+  templateUrl: './radio-form.component.html',
+  styleUrls: ['./radio-form.component.css']
 })
-export class FieldRadioComponent implements OnInit {
+export class RadioFormComponent implements OnInit {
   @Input() field: Field;
 
   typedField: FieldRadio;
