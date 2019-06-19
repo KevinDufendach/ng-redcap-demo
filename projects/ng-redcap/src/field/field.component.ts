@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {Field, FieldType} from './field';
+import {Field, FieldRadio, FieldType} from './field';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const noop = () => {};
@@ -28,6 +28,7 @@ export class FieldComponent implements ControlValueAccessor {
 
   // Access to FieldType enum
   FieldType = FieldType;
+  FieldRadio = FieldRadio;
 
   // get acessor
   get value(): any {
