@@ -96,14 +96,13 @@ export class AppComponent implements OnInit {
           this.values = result;
 
           this.updateValues();
-          // if (result instanceof Array) {
-          //   result.forEach(value => {
-          //     console.log(value);
-          //   });
-          // }
         },
         error => {
           console.log(error);
         });
+  }
+
+  submit() {
+    console.log(this.projectFields);
   }
 }
