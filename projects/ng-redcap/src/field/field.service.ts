@@ -8,16 +8,17 @@ export class FieldService {
   constructor() {
   }
 
-  getREDCapFormattedValues(fields: Field[]): Map<string, string> {
-    const formattedValues = new Map<string, string>();
+  getREDCapFormattedValues(fields: Field[]): object {
+    const formattedValues = {};
 
     for (const field of fields) {
-      field.getREDCapFormattedValueMap().forEach((value, key) => {
-        formattedValues.set(key, value);
+      const fieldVals = field.getREDCapFormattedValues();
+
+      Object.keys(fieldVals).forEach((key) => {
+        formattedValues[key] = fieldVals[key] || '';
       });
     }
 
     return formattedValues;
   }
 }
-

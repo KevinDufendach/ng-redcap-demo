@@ -77,7 +77,7 @@ export abstract class Field {
 
   abstract getValue();
 
-  abstract getREDCapFormattedValueMap(): Map<string, string>;
+  abstract getREDCapFormattedValues(): object;
 }
 
 export class RadioField extends Field {
@@ -110,18 +110,26 @@ export class RadioField extends Field {
     return this.value;
   }
 
-  getREDCapFormattedValueMap(): Map<string, string> {
-    const valueMap = new Map<string, string>();
+  getREDCapFormattedValues(): object {
+    const value = {};
 
-    valueMap.set(this.fieldName, this.getValue());
+    value[this.fieldName] = this.getValue();
 
-    return valueMap;
+    return value;
   }
 }
 
 export class CheckboxField extends Field {
   options: Map<string, string>;
   values = {};
+
+  private static convertBoolToValue(val: boolean) {
+    if (typeof val === 'undefined') {
+      return '';
+    }
+
+    return (val ? '1' : '0');
+  }
 
   assignValue(rawValues: object) {
     if (!this.fieldName) {
@@ -152,13 +160,13 @@ export class CheckboxField extends Field {
     return this.values;
   }
 
-  getREDCapFormattedValueMap(): Map<string, string> {
-    const valueMap = new Map<string, string>();
+  getREDCapFormattedValues(): object {
+    const values = {};
 
     this.options.forEach((value, key) => {
-      valueMap.set(this.fieldName + '___' + key, value);
+      values[this.fieldName + '___' + key] = CheckboxField.convertBoolToValue(this.values[key]);
     });
 
-    return valueMap;
+    return values;
   }
 }
