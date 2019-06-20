@@ -74,6 +74,23 @@ export abstract class Field {
     }
   }
 
+  static getOptionMapFromString(optionsString: string) {
+    const options = new Map<string, string>();
+    const ops = optionsString.split('|'); // TODO: determine what happens when there's a pipe in the string
+
+    for (const op of ops) {
+      const optionRegEx = /([\-\w\d]+),\s(.*)/g; // note: need to set with each iteration
+      const match = optionRegEx.exec(op);
+      if (match && match.length > 2) {
+        options.set(match[1], match[2]);
+      } else {
+        console.log('no match found: ' + op);
+      }
+    }
+
+    return options;
+  }
+
   abstract getType(): FieldType;
 
   abstract setOptions(optionsString: string);
@@ -88,18 +105,7 @@ export class RadioField extends Field {
   value: string;
 
   setOptions(optionsString: string) {
-    this.options = new Map<string, string>();
-    const ops = optionsString.split('|'); // TODO: determine what happens when there's a pipe in the string
-
-    for (const op of ops) {
-      const optionRegEx = /([\-0-9]+),\s(.*)/g; // note: need to set with each iteration
-      const match = optionRegEx.exec(op);
-      if (match && match.length > 2) {
-        this.options.set(match[1], match[2]);
-      } else {
-        console.log('no match found: ' + op);
-      }
-    }
+    this.options = Field.getOptionMapFromString(optionsString);
   }
 
   getOptions(): Map<string, string> {
@@ -110,14 +116,13 @@ export class RadioField extends Field {
     return FieldType.Radio;
   }
 
-  assignValue(values: object) {
+  assignValue(rawValues: object) {
     if (!this.fieldName) {
       console.log('unable to assign value since no field name exists');
     }
 
-    if (values.hasOwnProperty(this.fieldName)) {
-      console.log('setting value of: ' + this.fieldName + ' to ' + values[this.fieldName]);
-      this.value = values[this.fieldName];
+    if (rawValues.hasOwnProperty(this.fieldName)) {
+      this.value = rawValues[this.fieldName];
     }
   }
 
@@ -128,19 +133,31 @@ export class RadioField extends Field {
 
 
 export class FieldCheckbox extends Field {
-  value: Array<string>;
+  options: Map<string, string>;
+  values = new Map<string, boolean>();
 
-  assignValue(values: object) {
+  assignValue(rawValues: object) {
+    if (!this.fieldName) {
+      console.log('unable to assign value since no field name exists');
+    }
+
+    for (const key of this.options.keys()) {
+      const prop = this.fieldName + '___' + key.toLowerCase();
+      if (rawValues.hasOwnProperty(prop)) {
+        this.values.set(key, rawValues[prop] === '1');
+      }
+    }
   }
 
   setOptions(optionsString: string) {
+    this.options = Field.getOptionMapFromString(optionsString);
   }
 
   getType(): FieldType {
     return FieldType.Checkbox;
   }
 
-  getValue() {
-    return this.value;
+  getValue(): Map<string, boolean> {
+    return this.values;
   }
 }
