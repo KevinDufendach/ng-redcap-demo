@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {User} from 'firebase';
+import {functions, User} from 'firebase';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import {Field} from '../../projects/ng-redcap/src/field/field';
 import {FieldService} from '../../projects/ng-redcap/src/field/field.service';
@@ -102,6 +102,8 @@ export class AppComponent implements OnInit {
           this.updateValues();
         },
         error => {
+          // ToDo: Do not log error if user does not exist
+
           console.log(error);
         });
   }
