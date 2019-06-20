@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Field} from './field';
+import {AngularFireFunctions} from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FieldService {
-  constructor() {
+  constructor(private fns: AngularFireFunctions) {
   }
 
   getREDCapFormattedValues(fields: Field[]): object {
@@ -20,5 +21,24 @@ export class FieldService {
     }
 
     return formattedValues;
+  }
+
+  submitFields(fields: Field[]): Promise<any> {
+    const formattedValues = this.getREDCapFormattedValues(fields);
+
+    return new Promise<any>((resolve, reject) => {
+      const submitFieldsFn = this.fns.httpsCallable('submitFields');
+
+      submitFieldsFn({
+        records: formattedValues
+      })
+        .subscribe(result => {
+            console.log('Fields submitted');
+            resolve(result);
+          },
+          error => {
+            console.log(error);
+          });
+    });
   }
 }

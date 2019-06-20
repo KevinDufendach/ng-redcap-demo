@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
 
     getRecordExport({form: 'adolescent_preferences'})
       .subscribe(result => {
-          console.log(result);
+          // console.log(result);
           this.values = result;
 
           this.updateValues();
@@ -110,5 +110,12 @@ export class AppComponent implements OnInit {
     const values = this.fieldService.getREDCapFormattedValues(this.projectFields);
 
     console.log(values);
+    this.fieldService.submitFields(this.projectFields)
+      .then(result => {
+        console.log(result);
+      }).catch(reason => {
+        console.log('rejected submission: ' + reason);
+      }
+    );
   }
 }

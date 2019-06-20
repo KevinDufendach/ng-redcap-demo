@@ -121,7 +121,7 @@ export class REDCapService {
         'format': 'json',
         'returnFormat': 'json',
         'type': 'flat',
-        'data': records,
+        'data': JSON.stringify([records]),
       }
     };
 
@@ -137,7 +137,7 @@ export class REDCapService {
         }
       });
       p2.catch((error) => {
-        console.log(error);
+        // console.log(error);
         reject(error);
       });
     });

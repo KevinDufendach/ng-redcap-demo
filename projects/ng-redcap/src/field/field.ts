@@ -164,7 +164,7 @@ export class CheckboxField extends Field {
     const values = {};
 
     this.options.forEach((value, key) => {
-      values[this.fieldName + '___' + key] = CheckboxField.convertBoolToValue(this.values[key]);
+      values[this.fieldName + '___' + key.toLowerCase()] = CheckboxField.convertBoolToValue(this.values[key]);
     });
 
     return values;
