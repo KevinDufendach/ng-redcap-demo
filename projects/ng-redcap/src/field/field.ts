@@ -11,20 +11,17 @@ export abstract class Field {
   fieldType: FieldType;
   fieldLabel: string;
   fieldNote: string;
-  textValidationTypeOrShowSliderNumber?: string;
-  textValidationMin?: string;
-  textValidationMax?: string;
-  identifier?: string;
-  branchingLogic?: string;
-  requiredField?: string;
-  customAlignment?: string;
-  questionNumber?: string;
-  matrixGroupName?: string;
-  matrixRanking?: string;
-  fieldAnnotation?: string;
-
-  // options: any;
-  // value: any;
+  // textValidationTypeOrShowSliderNumber?: string;
+  // textValidationMin?: string;
+  // textValidationMax?: string;
+  // identifier?: string;
+  // branchingLogic?: string;
+  // requiredField?: string;
+  // customAlignment?: string;
+  // questionNumber?: string;
+  // matrixGroupName?: string;
+  // matrixRanking?: string;
+  // fieldAnnotation?: string;
 
   constructor(md: REDCapFieldMetadata) {
     this.fieldName = md.field_name;
@@ -79,6 +76,8 @@ export abstract class Field {
   abstract assignValue(values: object);
 
   abstract getValue();
+
+  abstract getREDCapFormattedValueMap(): Map<string, string>;
 }
 
 export class RadioField extends Field {
@@ -109,6 +108,14 @@ export class RadioField extends Field {
 
   getValue(): string {
     return this.value;
+  }
+
+  getREDCapFormattedValueMap(): Map<string, string> {
+    const valueMap = new Map<string, string>();
+
+    valueMap.set(this.fieldName, this.getValue());
+
+    return valueMap;
   }
 }
 
@@ -143,5 +150,15 @@ export class CheckboxField extends Field {
 
   getValue() {
     return this.values;
+  }
+
+  getREDCapFormattedValueMap(): Map<string, string> {
+    const valueMap = new Map<string, string>();
+
+    this.options.forEach((value, key) => {
+      valueMap.set(this.fieldName + '___' + key, value);
+    });
+
+    return valueMap;
   }
 }
