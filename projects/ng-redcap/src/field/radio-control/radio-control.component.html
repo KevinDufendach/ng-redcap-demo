@@ -1,3 +1,6 @@
 <mat-radio-group class="radio-field-group" [(ngModel)]="field.value">
-  <mat-radio-button class="radio-field-button" *ngFor="let key of optionKeys" [value]="key">{{field.getOptions().get(key)}}</mat-radio-button>
+  <mat-radio-button
+    class="radio-field-button"
+    *ngFor="let key of optionKeys"
+    [value]="key">{{field.getOptions().get(key)}}</mat-radio-button>
 </mat-radio-group>

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FieldComponent} from './field.component';
 import {RadioControlComponent} from './radio-control/radio-control.component';
-import {MatButtonModule, MatRadioModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatRadioModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {CheckboxControlComponent} from './checkbox-control/checkbox-control.component';
 
@@ -21,7 +21,8 @@ import {CheckboxControlComponent} from './checkbox-control/checkbox-control.comp
     CommonModule,
     MatButtonModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule
   ]
 })
 export class FieldModule {

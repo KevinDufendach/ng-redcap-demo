@@ -68,9 +68,9 @@ export abstract class Field {
       case 'radio':
         return new RadioField(rawField);
       case 'checkbox':
-        return new FieldCheckbox(rawField);
+        return new CheckboxField(rawField);
       default:
-        return new FieldCheckbox(rawField);
+        return new CheckboxField(rawField);
     }
   }
 
@@ -131,10 +131,9 @@ export class RadioField extends Field {
   }
 }
 
-
-export class FieldCheckbox extends Field {
+export class CheckboxField extends Field {
   options: Map<string, string>;
-  values = new Map<string, boolean>();
+  values = {};
 
   assignValue(rawValues: object) {
     if (!this.fieldName) {
@@ -144,7 +143,7 @@ export class FieldCheckbox extends Field {
     for (const key of this.options.keys()) {
       const prop = this.fieldName + '___' + key.toLowerCase();
       if (rawValues.hasOwnProperty(prop)) {
-        this.values.set(key, rawValues[prop] === '1');
+        this.values[key] = (rawValues[prop] === '1');
       }
     }
   }
@@ -153,11 +152,15 @@ export class FieldCheckbox extends Field {
     this.options = Field.getOptionMapFromString(optionsString);
   }
 
+  getOptions(): Map<string, string> {
+    return this.options;
+  }
+
   getType(): FieldType {
     return FieldType.Checkbox;
   }
 
-  getValue(): Map<string, boolean> {
+  getValue() {
     return this.values;
   }
 }
