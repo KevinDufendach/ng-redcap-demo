@@ -1,6 +1,7 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
 import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/field/redcap-field-metadata';
+import * as functions from 'firebase-functions';
 
 export interface REDCapConfig {
   token: string,
@@ -95,7 +96,9 @@ export class REDCapService {
         // ToDo: check to be sure data received are appropriately formatted
         const resultData = <object[]> result;
         if (resultData.length < 1) {
-          reject('Result not returned');
+          console.log(resultData);
+
+          reject(new functions.https.HttpsError('unavailable', 'User has no data'));
         } else {
           resolve(resultData[0]);
         }
