@@ -48,25 +48,25 @@ export class REDCapService {
     });
   }
 
-  getTestMetaData(form?: string): Promise<REDCapFieldMetadata[]> {
-    const options = {
-      uri: cfg.testConfig.uri,
-      json: true, // Automatically parses the JSON string in the response
-    };
-
-    return new Promise<REDCapFieldMetadata[]>((resolve, reject) => {
-      const p1 = request.get(options);
-      const p2 = p1.then((result) => {
-        // ToDo: check to be sure data received are appropriately formatted
-        const resultData = <REDCapFieldMetadata[]> result;
-        resolve(resultData);
-      });
-      p2.catch((error) => {
-        console.log(error);
-        reject(error);
-      });
-    });
-  }
+  // getTestMetaData(form?: string): Promise<REDCapFieldMetadata[]> {
+  //   const options = {
+  //     uri: cfg.testConfig.uri,
+  //     json: true, // Automatically parses the JSON string in the response
+  //   };
+  //
+  //   return new Promise<REDCapFieldMetadata[]>((resolve, reject) => {
+  //     const p1 = request.get(options);
+  //     const p2 = p1.then((result) => {
+  //       // ToDo: check to be sure data received are appropriately formatted
+  //       const resultData = <REDCapFieldMetadata[]> result;
+  //       resolve(resultData);
+  //     });
+  //     p2.catch((error) => {
+  //       console.log(error);
+  //       reject(error);
+  //     });
+  //   });
+  // }
 
   getRecordExport(userId: string, form?: string): Promise<object> {
     const options = {

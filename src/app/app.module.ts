@@ -34,7 +34,7 @@ import {NgRedcapModule} from '../../projects/ng-redcap/src/lib/ng-redcap.module'
     NgRedcapModule,
   ],
   providers: [
-    { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }
+    // { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }
   ],
   bootstrap: [AppComponent]
 })
