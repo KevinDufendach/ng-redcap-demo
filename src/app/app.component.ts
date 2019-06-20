@@ -3,6 +3,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import {Field} from '../../projects/ng-redcap/src/field/field';
+import {FieldService} from '../../projects/ng-redcap/src/field/field.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,10 @@ export class AppComponent implements OnInit {
   projectFields: Field[];
   values = {};
 
-  constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions) {
+  constructor(
+    public afAuth: AngularFireAuth,
+    private fns: AngularFireFunctions,
+    private fieldService: FieldService) {
   }
 
   login(): void {
@@ -103,6 +107,8 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.projectFields);
+    const values = this.fieldService.getREDCapFormattedValues(this.projectFields);
+
+    console.log(values);
   }
 }
