@@ -1,23 +1,4 @@
-export interface REDCapFieldMetadata {
-  'field_name': string;
-  'form_name': string;
-  'section_header': string;
-  'field_type': string;
-  'field_label': string;
-  'select_choices_or_calculations': string;
-  'field_note': string;
-  'text_validation_type_or_show_slider_number': string;
-  'text_validation_min': string;
-  'text_validation_max': string;
-  'identifier': string;
-  'branching_logic': string;
-  'required_field': string;
-  'custom_alignment': string;
-  'question_number': string;
-  'matrix_group_name': string;
-  'matrix_ranking': string;
-  'field_annotation': string;
-}
+import {REDCapFieldMetadata} from './redcap-field-metadata';
 
 export enum FieldType {
   Radio,
@@ -30,20 +11,17 @@ export abstract class Field {
   fieldType: FieldType;
   fieldLabel: string;
   fieldNote: string;
-  textValidationTypeOrShowSliderNumber?: string;
-  textValidationMin?: string;
-  textValidationMax?: string;
-  identifier?: string;
-  branchingLogic?: string;
-  requiredField?: string;
-  customAlignment?: string;
-  questionNumber?: string;
-  matrixGroupName?: string;
-  matrixRanking?: string;
-  fieldAnnotation?: string;
-
-  // options: any;
-  // value: any;
+  // textValidationTypeOrShowSliderNumber?: string;
+  // textValidationMin?: string;
+  // textValidationMax?: string;
+  // identifier?: string;
+  // branchingLogic?: string;
+  // requiredField?: string;
+  // customAlignment?: string;
+  // questionNumber?: string;
+  // matrixGroupName?: string;
+  // matrixRanking?: string;
+  // fieldAnnotation?: string;
 
   constructor(md: REDCapFieldMetadata) {
     this.fieldName = md.field_name;
@@ -98,6 +76,8 @@ export abstract class Field {
   abstract assignValue(values: object);
 
   abstract getValue();
+
+  abstract getREDCapFormattedValues(): object;
 }
 
 export class RadioField extends Field {
@@ -129,11 +109,27 @@ export class RadioField extends Field {
   getValue(): string {
     return this.value;
   }
+
+  getREDCapFormattedValues(): object {
+    const value = {};
+
+    value[this.fieldName] = this.getValue();
+
+    return value;
+  }
 }
 
 export class CheckboxField extends Field {
   options: Map<string, string>;
   values = {};
+
+  private static convertBoolToValue(val: boolean) {
+    if (typeof val === 'undefined') {
+      return '';
+    }
+
+    return (val ? '1' : '0');
+  }
 
   assignValue(rawValues: object) {
     if (!this.fieldName) {
@@ -162,5 +158,15 @@ export class CheckboxField extends Field {
 
   getValue() {
     return this.values;
+  }
+
+  getREDCapFormattedValues(): object {
+    const values = {};
+
+    this.options.forEach((value, key) => {
+      values[this.fieldName + '___' + key.toLowerCase()] = CheckboxField.convertBoolToValue(this.values[key]);
+    });
+
+    return values;
   }
 }

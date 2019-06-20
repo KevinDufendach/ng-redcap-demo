@@ -34,8 +34,19 @@ export const getRecord = functions.https.onCall((data, context) => {
 
   // Return promise from REDCap getMetadata class
   const rc = new REDCapService();
-  // return rc.getMetadata('adolescent_preferences');
-  // return rc.getTestMetaData('adolescent_preferences');
-  return rc.getRecordExport('TEST_USER', form);
+  return rc.getRecordExport(context.auth.uid, form);
+});
+
+export const submitFields = functions.https.onCall((data, context) => {
+  // check request is made by logged in user
+  if (!context.auth) {
+    console.log('Attempt to setRecord when not logged in');
+
+    return notLoggedIn();
+  }
+
+  // Return promise from REDCap getMetadata class
+  const rc = new REDCapService();
+  return rc.recordImport(context.auth.uid, data.records);
 });
 
