@@ -96,9 +96,7 @@ export class REDCapService {
         // ToDo: check to be sure data received are appropriately formatted
         const resultData = <object[]> result;
         if (resultData.length < 1) {
-          console.log(resultData);
-
-          reject(new functions.https.HttpsError('unavailable', 'User has no data'));
+          reject(new functions.https.HttpsError('unavailable', 'User ' + userId + ' has no data'));
         } else {
           resolve(resultData[0]);
         }
