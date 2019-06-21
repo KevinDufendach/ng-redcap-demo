@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Field} from './field';
+import {CheckboxField, Field, RadioField} from './field';
 import {AngularFireFunctions} from '@angular/fire/functions';
+import {REDCapFieldMetadata} from './redcap-field-metadata';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +36,57 @@ export class FieldService {
     return formattedValues;
   }
 
+  static generateFieldsFromMetadataList(redCapFieldMetadata: REDCapFieldMetadata[]): Promise<Field[]> {
+    const fields = new Array<Field>();
+
+    return new Promise<Field[]>((resolve, reject) => {
+      let errEncountered = false;
+
+      for (const rawField of redCapFieldMetadata) {
+        FieldService.buildFromMetadata(rawField)
+          .then(newField => {
+            fields.push(newField);
+          })
+          .catch((error) => {
+            reject('error when trying to build field');
+            errEncountered = true;
+          });
+
+        if (errEncountered) {
+          break;
+        }
+      }
+
+      if (!errEncountered) {
+        resolve(fields);
+      }
+    });
+  }
+
+  static buildFromMetadata(rawField: REDCapFieldMetadata): Promise<Field> {
+    return new Promise<Field>((resolve, reject) => {
+      switch (rawField.field_type) {
+        case 'radio':
+          resolve(new RadioField(rawField));
+          break;
+        case 'checkbox':
+          resolve(new CheckboxField(rawField));
+          break;
+        default:
+          reject('Unknown field type');
+      }
+
+    });
+
+  }
+
   loadProjectData(form?: string): Promise<Field[]> {
     const getMetadata = this.fns.httpsCallable('getMetadata');
 
     return new Promise<Field[]>((resolve, reject) => {
       getMetadata({form})
         .subscribe(metadata => {
-            Field.generateFieldsFromMetadataList(metadata)
+            FieldService.generateFieldsFromMetadataList(metadata)
               .then((fieldList) => {
                 this.fields = fieldList;
 

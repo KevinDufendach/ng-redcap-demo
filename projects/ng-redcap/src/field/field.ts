@@ -31,50 +31,6 @@ export abstract class Field {
     this.setOptions(md.select_choices_or_calculations);
   }
 
-  static generateFieldsFromMetadataList(redCapFieldMetadata: REDCapFieldMetadata[]): Promise<Field[]> {
-    const fields = new Array<Field>();
-
-    return new Promise<Field[]>((resolve, reject) => {
-      let errEncountered = false;
-
-      for (const rawField of redCapFieldMetadata) {
-        this.buildFromMetadata(rawField)
-          .then(newField => {
-            fields.push(newField);
-          })
-          .catch((error) => {
-            reject('error when trying to build field');
-            errEncountered = true;
-          });
-
-        if (errEncountered) {
-          break;
-        }
-      }
-
-      if (!errEncountered) {
-        resolve(fields);
-      }
-    });
-  }
-
-  static buildFromMetadata(rawField: REDCapFieldMetadata): Promise<Field> {
-    return new Promise<Field>((resolve, reject) => {
-      switch (rawField.field_type) {
-        case 'radio':
-          resolve(new RadioField(rawField));
-          break;
-        case 'checkbox':
-          resolve(new CheckboxField(rawField));
-          break;
-        default:
-          reject('Unknown field type');
-      }
-
-    });
-
-  }
-
   static getOptionMapFromString(optionsString: string) {
     const options = new Map<string, string>();
     const ops = optionsString.split('|'); // TODO: determine what happens when there's a pipe in the string
