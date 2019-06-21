@@ -1,6 +1,18 @@
-# NgRedcap
+# ng-REDCap
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+
+# Installation
+
+This is a WORK IN PROGRESS.
+
+ng-REDCap is meant to provide an interface to [REDCap](https://projectredcap.org/).
+
+ng-REDCap uses Firebase for authentication. Users are assumed to have access to their own data but will not be able to access others' data.
+
+An example of the Firebase functions setup is available at the GitHub repo https://github.com/KevinDufendach/ng-redcap-demo.
+
+# Angular CLI instructions
 
 ## Code scaffolding
 
