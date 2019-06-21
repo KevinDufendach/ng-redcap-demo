@@ -76,8 +76,8 @@ export class FieldService {
     });
   }
 
-  submitFields(fields: Field[]): Promise<any> {
-    const formattedValues = FieldService.getREDCapFormattedValues(fields);
+  submitFields(): Promise<any> {
+    const formattedValues = FieldService.getREDCapFormattedValues(this.fields);
 
     return new Promise<any>((resolve, reject) => {
       const submitFieldsFn = this.fns.httpsCallable('submitFields');

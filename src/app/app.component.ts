@@ -19,13 +19,13 @@ export class AppComponent implements OnInit {
   authText: '';
   projectData: any;
 
-  projectFields: Field[];
-  values = {};
+  // projectFields: Field[];
+  // values = {};
 
-  constructor(
-    public afAuth: AngularFireAuth,
-    private fns: AngularFireFunctions,
-    private fieldService: FieldService) {
+  fs: FieldService;
+
+  constructor(public afAuth: AngularFireAuth, private fns: AngularFireFunctions, private fieldService: FieldService) {
+    this.fs = fieldService;
   }
 
   login(): void {
@@ -54,14 +54,14 @@ export class AppComponent implements OnInit {
   getValues(): void {
     this.fieldService.loadUserRecords('adolescent_preferences')
       .then( (result) => {
-        this.values = result;
+        // this.values = result;
       }).catch( (error) => {
         console.log(error);
     });
   }
 
   submit() {
-    this.fieldService.submitFields(this.projectFields)
+    this.fieldService.submitFields()
       .then(() => {
         console.log('Save successful');
       }).catch(reason => {

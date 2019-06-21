@@ -1,8 +1,7 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <h1>Angular REDCap demo!</h1>
-</div>
+<mat-toolbar class="mat-primary">
+  <span>Genetic Preferences Tool</span>
 
+</mat-toolbar>
 <div>
   <mat-card class="login-card">
     <mat-card-header>
@@ -28,35 +27,34 @@
   </mat-card>
 </div>
 
-<div>
-  <h3>Test area for get project data</h3>
+<div fxLayout="row" fxLayoutAlign="space-around center">
   <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Get Fields</button>
-  <p>Field objects:</p>
-  <ul>
-    <li *ngFor="let field of projectFields">
-      {{field.fieldLabel}}: {{field.getValue()}}
-    </li>
-  </ul>
+  <button mat-raised-button class="mat-primary" (click)="getValues()">Load Values</button>
+  <button mat-raised-button class="mat-primary" (click)="submit()">Submit</button>
 </div>
 
-<div *ngFor="let field of projectFields">
+<!--<div>-->
+<!--  <h3>Test area for get project data</h3>-->
+<!--  <p>Field objects:</p>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let field of fs.fields">-->
+<!--      {{field.fieldLabel}}: {{field.getValue()}}-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<div *ngFor="let field of fs.fields">
   <rcap-field [field]="field"></rcap-field>
 </div>
 
-<div>
-  <h3>Test area for records</h3>
-  <button mat-raised-button class="mat-primary" (click)="getValues()">Test Record Export</button>
-  <div>
-    <textarea>{{values}}</textarea>
-  </div>
-  <ul>
-    <li *ngFor="let item of values | keyvalue">{{item.key}}: {{item.value}}</li>
-  </ul>
-</div>
-
-<div>
-  <h3>Test area for submit</h3>
-  <button mat-raised-button class="mat-primary" (click)="submit()">Submit</button>
-</div>
+<!--<div>-->
+<!--  <h3>Test area for records</h3>-->
+<!--  <div>-->
+<!--    <textarea>{{values}}</textarea>-->
+<!--  </div>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let item of values | keyvalue">{{item.key}}: {{item.value}}</li>-->
+<!--  </ul>-->
+<!--</div>-->
 
 <router-outlet></router-outlet>
