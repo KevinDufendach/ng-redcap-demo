@@ -1,7 +1,7 @@
 <mat-toolbar class="mat-primary">
   <span>Genetic Preferences Tool</span>
-
 </mat-toolbar>
+
 <div>
   <mat-card class="login-card">
     <mat-card-header>
@@ -33,28 +33,8 @@
   <button mat-raised-button class="mat-primary" (click)="submit()">Submit</button>
 </div>
 
-<!--<div>-->
-<!--  <h3>Test area for get project data</h3>-->
-<!--  <p>Field objects:</p>-->
-<!--  <ul>-->
-<!--    <li *ngFor="let field of fs.fields">-->
-<!--      {{field.fieldLabel}}: {{field.getValue()}}-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</div>-->
-
 <div *ngFor="let field of fs.fields">
   <rcap-field [field]="field"></rcap-field>
 </div>
-
-<!--<div>-->
-<!--  <h3>Test area for records</h3>-->
-<!--  <div>-->
-<!--    <textarea>{{values}}</textarea>-->
-<!--  </div>-->
-<!--  <ul>-->
-<!--    <li *ngFor="let item of values | keyvalue">{{item.key}}: {{item.value}}</li>-->
-<!--  </ul>-->
-<!--</div>-->
 
 <router-outlet></router-outlet>
