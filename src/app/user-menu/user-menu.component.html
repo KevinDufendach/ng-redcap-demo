@@ -1,0 +1,4 @@
+<button *ngIf="!isLoggedIn" (click)="openDialog()" mat-raised-button>Log in</button>
+<div *ngIf="isLoggedIn" fxLayout="row">
+  <button mat-button *ngIf="isLoggedIn" (click)="logout()">Log out</button>
+</div>

@@ -16,10 +16,12 @@ export const getMetadata = functions.https.onCall((data, context) => {
     return notLoggedIn();
   }
 
+  const form = data.form || '';
+
   // Return promise from REDCap getMetadata class
   const rc = new REDCapService();
-  // return rc.getMetadata('adolescent_preferences');
-  return rc.getTestMetaData('adolescent_preferences');
+  // return rc.getMetadata(form);
+  return rc.getTestMetaData(form);
 });
 
 export const getRecord = functions.https.onCall((data, context) => {
