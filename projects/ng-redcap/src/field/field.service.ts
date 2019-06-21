@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {CheckboxField, Field, RadioField} from './field';
+import {Field} from './field';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import {REDCapFieldMetadata} from './redcap-field-metadata';
+import {RadioField} from './radio-field';
+import {CheckboxField} from './checkbox-field';
 
 @Injectable({
   providedIn: 'root'
