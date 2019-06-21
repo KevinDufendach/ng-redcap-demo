@@ -1,62 +1,41 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <h1>Angular REDCap demo!</h1>
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Angular REDCap Demo</span>
+      <span fxFlex></span>
+      <app-user-menu></app-user-menu>
+    </mat-toolbar>
 
-<div>
-  <mat-card class="login-card">
-    <mat-card-header>
-      <h1 *ngIf="!isLoggedIn">Please log in</h1>
-      <h1 *ngIf="isLoggedIn">Welcome!</h1>
-    </mat-card-header>
-    <mat-card-content>
-      <div *ngIf="isLoggedIn">
-        <p>{{ user.email }}</p>
-        <p>{{ user.uid }}</p>
-        <button mat-raised-button (click)="logout()">Log out</button>
-      </div>
-      <div *ngIf="!isLoggedIn" fxLayout="column" fxLayoutAlign="space-between">
-        <mat-form-field>
-          <input matInput type="email" placeholder="Email" [(ngModel)]="email">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="pass">
-        </mat-form-field>
-        <button mat-raised-button (click)="login()">Log in</button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Get Fields</button>
+      <button mat-raised-button class="mat-primary" (click)="getValues()">Load Values</button>
+      <button mat-raised-button class="mat-primary" (click)="submit()">Submit</button>
+    </div>
 
-<div>
-  <h3>Test area for get project data</h3>
-  <button mat-raised-button class="mat-primary" (click)="testProjectDataFunction()">Get Fields</button>
-  <p>Field objects:</p>
-  <ul>
-    <li *ngFor="let field of projectFields">
-      {{field.fieldLabel}}: {{field.getValue()}}
-    </li>
-  </ul>
-</div>
+    <div *ngFor="let field of fs.fields">
+      <rcap-field [field]="field"></rcap-field>
+    </div>
 
-<div *ngFor="let field of projectFields">
-  <rcap-field [field]="field"></rcap-field>
-</div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-<div>
-  <h3>Test area for records</h3>
-  <button mat-raised-button class="mat-primary" (click)="getValues()">Test Record Export</button>
-  <div>
-    <textarea>{{values}}</textarea>
-  </div>
-  <ul>
-    <li *ngFor="let item of values | keyvalue">{{item.key}}: {{item.value}}</li>
-  </ul>
-</div>
-
-<div>
-  <h3>Test area for submit</h3>
-  <button mat-raised-button class="mat-primary" (click)="submit()">Submit</button>
-</div>
-
-<router-outlet></router-outlet>
