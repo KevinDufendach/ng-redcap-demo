@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireFunctions} from '@angular/fire/functions';
-import {FieldService} from '../../projects/ng-redcap/src/field/field.service';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
+import {FieldService} from 'ng-redcap/field/field.service';
 
 @Component({
   selector: 'app-root',
