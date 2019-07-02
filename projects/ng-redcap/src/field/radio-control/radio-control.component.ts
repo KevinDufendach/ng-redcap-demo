@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RadioField} from '../field';
+import {RadioField} from '../radio-field';
 
 @Component({
   selector: 'rcap-radio-control',

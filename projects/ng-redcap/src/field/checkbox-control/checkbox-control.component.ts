@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CheckboxField} from '../field';
+import {CheckboxField} from '../checkbox-field';
 
 @Component({
   selector: 'rcap-checkbox-control',
