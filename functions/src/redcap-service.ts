@@ -1,7 +1,7 @@
 import * as cfg from './config';
 import * as request from 'request-promise-native';
-import {REDCapFieldMetadata} from '../../projects/ng-redcap/src/field/redcap-field-metadata';
 import * as functions from 'firebase-functions';
+import {REDCapFieldMetadata} from 'ng-redcap/field/redcap-field-metadata';
 
 export interface REDCapConfig {
   token: string,
