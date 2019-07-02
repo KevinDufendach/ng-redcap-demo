@@ -59,7 +59,7 @@ export abstract class Field {
   }
 
   static buildFromMetadata(rawField: REDCapFieldMetadata): Promise<Field> {
-    return new Promise<Field>((resolve, reject) => {
+    const result = new Promise<Field>((resolve, reject) => {
       switch (rawField.field_type) {
         case 'radio':
           resolve(new RadioField(rawField));
@@ -72,7 +72,7 @@ export abstract class Field {
       }
 
     });
-
+    return result;
   }
 
   static getOptionMapFromString(optionsString: string) {
