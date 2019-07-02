@@ -57,7 +57,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     LoginDialogComponent,
   ],
   providers: [
-    // { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }
+    { provide: FUNCTIONS_ORIGIN, useValue: 'http://localhost:5000' }
   ],
   bootstrap: [AppComponent]
 })
